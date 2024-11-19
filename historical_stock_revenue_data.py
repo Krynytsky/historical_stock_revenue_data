@@ -123,17 +123,17 @@ beautiful_soup_gme = BeautifulSoup(html_data_2, 'html.parser')
 # The dataframe should have columns Date and Revenue. 
 # Make sure the comma and dollar sign is removed from the Revenue column.
 
-tables_gme = beautiful_soup_gme.find_all('table')
+# tables_gme = beautiful_soup_gme.find_all('table')
 
-for table in tables_gme:
-    if 'GameStop Revenue' in str(tables_gme):
-        gme_table = table
-        break
-
+# for table in tables_gme:
+#     if 'GameStop Revenue' in str(tables_gme):
+#         gme_table = table
+#         break
+gme_table = beautiful_soup_gme.find_all("tbody")[1]
 data_gme = []
 
 # Find all rows in the table body
-for row in gme_table.find('tbody').find_all('tr'):
+for row in gme_table.find_all('tr'):
     cols = row.find_all('td')
     date = cols[0].text.strip()  # First column for Date
     revenue = cols[1].text.strip()  # Second column for Revenue
@@ -155,4 +155,4 @@ last_five_rows = gme_revenue.tail()
 print(last_five_rows)
 
 make_graph(tesla_data, tesla_revenue, 'Tesla')
-# make_graph(gme_data, gme_revenue, 'GameStop')
+make_graph(gme_data, gme_revenue, 'GameStop')
